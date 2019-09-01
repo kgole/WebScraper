@@ -1,21 +1,19 @@
 import csv
-
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
+from time import sleep
 
 URL = "https://www.smartmobil.de/handys"
 r = requests.get(URL)
-#print(r.content)
 
 soup = BeautifulSoup(r.content, 'lxml')
-#print(soup.prettify())
 
+
+URLList = []
 for link in soup.find_all('a', attrs={'class': 'c-button'}):
-    print(link.get('href'))
+    link2 = link.get('href')
+    fullURL = "https://www.smartmobil.de"+str(link2)
+    URLList.append(fullURL)
 
-
-
-
-#for link in links:
-#    if "Samsung" in link.text:
-#        print (link)
+del URLList[0:2]
+print(URLList)
